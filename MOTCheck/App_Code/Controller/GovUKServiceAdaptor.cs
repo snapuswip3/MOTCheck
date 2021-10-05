@@ -15,6 +15,7 @@ namespace MOTCheck.Controller
     public static class GovUKServiceAdaptor
     {
         private static readonly HttpClient _httpClient;
+        private static readonly string _sApplicationName;
 
         static GovUKServiceAdaptor()
         {
@@ -28,6 +29,8 @@ namespace MOTCheck.Controller
                 NoCache = true
             };
             _httpClient.Timeout = TimeSpan.FromMilliseconds(10000);
+
+            _sApplicationName = AppConstants.APPLICATION_NAME;
         }
 
         private static bool GetMotTestResponse(string a_sRegistration, out string a_sResponseContent, out string a_sErrorMessage)
@@ -62,7 +65,7 @@ namespace MOTCheck.Controller
             {
                 if (ex.CancellationToken == cancellationTokenSource.Token)
                 {
-                    a_sErrorMessage = "The gov.uk request was cancelled by MOTCheck.";
+                    a_sErrorMessage = "The gov.uk request was cancelled by " + _sApplicationName + ".";
                 }
                 else
                 {
@@ -92,7 +95,7 @@ namespace MOTCheck.Controller
                 catch (Exception ex)
                 {
                     string sExceptionTypeName = ex.GetType().Name;
-                    a_sErrorMessage = "The MOTCheck response parser has thrown " + sExceptionTypeName.PrefixNoun() + " whilst processing the gov.uk response.";
+                    a_sErrorMessage = "The " + _sApplicationName + " response parser has thrown " + sExceptionTypeName.PrefixNoun() + " whilst processing the gov.uk response.";
                 }
             }
 

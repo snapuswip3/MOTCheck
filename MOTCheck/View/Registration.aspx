@@ -9,6 +9,13 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:TextBox ID="RegistrationTextBox" runat="server" MaxLength="8"></asp:TextBox>
+            <asp:Button ID="CheckRegistrationButton" runat="server" Text="Check" OnClick="CheckRegistrationButton_Click" />
+            <asp:Label ID="MakeLabel" runat="server"></asp:Label>
+            <asp:Label ID="ModelLabel" runat="server"></asp:Label>
+            <asp:Label ID="ColourLabel" runat="server"></asp:Label>
+            <asp:Label ID="MotExpiryLabel" runat="server"></asp:Label>
+            <asp:Label ID="LastMotMileageLabel" runat="server"></asp:Label>
         </div>
     </form>
 </body>
