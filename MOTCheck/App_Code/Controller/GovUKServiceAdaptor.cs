@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 
 namespace MOTCheck.Controller
 {
@@ -23,7 +24,7 @@ namespace MOTCheck.Controller
             _httpClient.BaseAddress = new Uri("https://beta.check-mot.service.gov.uk/trade/vehicles/");
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json+v6"));
             //TODO AppSettings / secrets?
-            _httpClient.DefaultRequestHeaders.Add("x-api-key", "fZi8YcjrZN1cGkQeZP7Uaa4rTxua8HovaswPuIno");
+            _httpClient.DefaultRequestHeaders.Add("x-api-key", WebConfigurationManager.AppSettings["GovUKService:ApiKey"]);
             _httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue()
             {
                 NoCache = true

@@ -7,6 +7,7 @@ using System.Web.Routing;
 
 public partial class View_Registration : System.Web.UI.Page
 {
+    //TODO prevent back / forward cache? look into
     protected void Page_Load(object sender, EventArgs e)
     {
         string sRegistration = RouteData.Values[AppConstants.ROUTE_DATA.REGISTRATION] as string;
