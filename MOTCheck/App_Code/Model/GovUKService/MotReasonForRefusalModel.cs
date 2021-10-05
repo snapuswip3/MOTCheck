@@ -1,6 +1,6 @@
-﻿namespace MOTCheck.Model
+﻿namespace MOTCheck.Model.GovUKService
 {
-    public class GovUKServiceMotReasonForRefusalModel
+    public class MotReasonForRefusalModel
     {
         public string Text { get; set; }
         public string Type { get; set; }

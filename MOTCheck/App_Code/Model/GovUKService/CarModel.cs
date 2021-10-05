@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MOTCheck.Model
+namespace MOTCheck.Model.GovUKService
 {
-    public class GovUKServiceCarModel
+    public class CarModel
     {
         public string Registration { get; set; }
         public string Make { get; set; }
@@ -15,6 +15,6 @@ namespace MOTCheck.Model
         public DateTime? RegistrationDate { get; set; }
         public DateTime? ManufactureDate { get; set; }
         public int? EngineSize { get; set; }
-        public List<GovUKServiceMotTestModel> MotTests { get; set; }
+        public List<MotTestModel> MotTests { get; set; }
     }
 }

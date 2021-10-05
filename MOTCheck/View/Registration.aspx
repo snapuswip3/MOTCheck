@@ -11,6 +11,7 @@
         <div>
             <asp:TextBox ID="RegistrationTextBox" runat="server" MaxLength="8"></asp:TextBox>
             <asp:Button ID="CheckRegistrationButton" runat="server" Text="Check" OnClick="CheckRegistrationButton_Click" />
+            <asp:Label ID="ErrorLabel" runat="server"></asp:Label>
             <asp:Label ID="MakeLabel" runat="server"></asp:Label>
             <asp:Label ID="ModelLabel" runat="server"></asp:Label>
             <asp:Label ID="ColourLabel" runat="server"></asp:Label>

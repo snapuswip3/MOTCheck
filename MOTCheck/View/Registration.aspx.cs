@@ -1,6 +1,6 @@
 ﻿using MOTCheck;
 using MOTCheck.Controller;
-using MOTCheck.Model;
+using MOTCheck.Model.GovUKService;
 using System;
 using System.Linq;
 using System.Web.Routing;
@@ -14,18 +14,34 @@ public partial class View_Registration : System.Web.UI.Page
         if (!string.IsNullOrWhiteSpace(sRegistration))
         {
             string sErrorMessage;
-            GovUKServiceCarModel govUKServiceCarModel = GovUKServiceAdaptor.GetMotTest(RouteData.Values[AppConstants.ROUTE_DATA.REGISTRATION] as string, out sErrorMessage);
+            CarModel carModel = GovUKServiceAdaptor.GetMotTest(RouteData.Values[AppConstants.ROUTE_DATA.REGISTRATION] as string, out sErrorMessage);
 
-            MakeLabel.Text = govUKServiceCarModel.Make;
-            ModelLabel.Text = govUKServiceCarModel.Model;
-            ColourLabel.Text = govUKServiceCarModel.PrimaryColour;
-
-            GovUKServiceMotTestModel latestGovUKServiceMotTestModel = govUKServiceCarModel.MotTests.FirstOrDefault();
-
-            if (latestGovUKServiceMotTestModel != null)
+            if (carModel is null)
             {
-                MotExpiryLabel.Text = latestGovUKServiceMotTestModel.ExpiryDate?.ToShortDateString();
-                LastMotMileageLabel.Text = latestGovUKServiceMotTestModel.OdometerValue?.ToString() + " " + latestGovUKServiceMotTestModel.OdometerUnit;
+                ErrorLabel.Text = sErrorMessage;
+            }
+            else
+            {
+                MakeLabel.Text = carModel.Make;
+                ModelLabel.Text = carModel.Model;
+                ColourLabel.Text = carModel.PrimaryColour;
+
+                MotTestModel latestPassMotTestModel =
+                    carModel.MotTests?
+                    .Where(m => m.TestResult == "PASSED")
+                    .OrderByDescending(m => m.CompletedDate)
+                    .ThenByDescending(m => m.MotTestNumber)
+                    .FirstOrDefault();
+
+                if (latestPassMotTestModel != null) MotExpiryLabel.Text = latestPassMotTestModel.ExpiryDate?.ToShortDateString();
+
+                MotTestModel latestMotTestModel =
+                    carModel.MotTests?
+                    .OrderByDescending(m => m.CompletedDate)
+                    .ThenByDescending(m => m.MotTestNumber)
+                    .FirstOrDefault();
+
+                if (latestMotTestModel != null) LastMotMileageLabel.Text = latestMotTestModel.OdometerValue.ToString() + " " + latestMotTestModel.OdometerUnit;
             }
         }
     }

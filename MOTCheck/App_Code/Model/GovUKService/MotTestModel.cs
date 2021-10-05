@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MOTCheck.Model
+namespace MOTCheck.Model.GovUKService
 {
-    public class GovUKServiceMotTestModel
+    public class MotTestModel
     {
         public DateTime? CompletedDate { get; set; }
         public string TestResult { get; set; }
@@ -12,6 +12,6 @@ namespace MOTCheck.Model
         public string OdometerUnit { get; set; }
         public string OdometerResultType { get; set; }
         public long? MotTestNumber { get; set; }
-        public List<GovUKServiceMotReasonForRefusalModel> RfrAndComments { get; set; }
+        public List<MotReasonForRefusalModel> RfrAndComments { get; set; }
     }
 }

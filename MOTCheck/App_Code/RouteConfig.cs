@@ -14,7 +14,7 @@ namespace MOTCheck
 
             aRouteCollection.MapPageRoute(
                 AppConstants.ROUTE_NAME.REGISTRATION,
-                "Registration/{" + AppConstants.ROUTE_DATA.REGISTRATION + "}",
+                "{" + AppConstants.ROUTE_DATA.REGISTRATION + "}",
                 "~/View/Registration.aspx"
             );
         }

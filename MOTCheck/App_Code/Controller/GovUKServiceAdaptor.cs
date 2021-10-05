@@ -1,5 +1,5 @@
 ﻿using MOTCheck.Extensions;
-using MOTCheck.Model;
+using MOTCheck.Model.GovUKService;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -81,16 +81,16 @@ namespace MOTCheck.Controller
             return bOK;
         }
 
-        public static GovUKServiceCarModel GetMotTest(string a_sRegistration, out string a_sErrorMessage)
+        public static CarModel GetMotTest(string a_sRegistration, out string a_sErrorMessage)
         {
-            GovUKServiceCarModel govUKServiceCarModel = null;
+            CarModel govUKServiceCarModel = null;
 
             string sJson;
             if (GetMotTestResponse(a_sRegistration, out sJson, out a_sErrorMessage))
             {
                 try
                 {
-                    govUKServiceCarModel = JsonConvert.DeserializeObject<List<GovUKServiceCarModel>>(sJson).SingleOrDefault();
+                    govUKServiceCarModel = JsonConvert.DeserializeObject<List<CarModel>>(sJson).SingleOrDefault();
                 }
                 catch (Exception ex)
                 {
