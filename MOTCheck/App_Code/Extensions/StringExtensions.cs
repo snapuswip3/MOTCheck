@@ -15,5 +15,10 @@ namespace MOTCheck.Extensions
         {
             return a_sInput.EndsWith(a_sSuffix) ? a_sInput.Substring(0, a_sInput.Length - a_sSuffix.Length) : a_sInput;
         }
+
+        public static string TagWrap(this string a_sInput, string a_sTag)
+        {
+            return "<" + a_sTag + ">" + a_sInput + "</" + a_sTag + ">";
+        }
     }
 }

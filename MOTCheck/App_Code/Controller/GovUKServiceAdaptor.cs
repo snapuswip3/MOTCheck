@@ -3,6 +3,7 @@ using MOTCheck.Model.GovUKService;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -21,15 +22,15 @@ namespace MOTCheck.Controller
         static GovUKServiceAdaptor()
         {
             _httpClient = new HttpClient();
-            _httpClient.BaseAddress = new Uri("https://beta.check-mot.service.gov.uk/trade/vehicles/");
+            _httpClient.BaseAddress = new Uri(ConfigurationManager.ConnectionStrings["GovUKService:BaseAddress"].ConnectionString);
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json+v6"));
-            //TODO AppSettings / secrets?
             _httpClient.DefaultRequestHeaders.Add("x-api-key", WebConfigurationManager.AppSettings["GovUKService:ApiKey"]);
             _httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue()
             {
-                NoCache = true
+                NoCache = true,
+                NoStore = true
             };
-            _httpClient.Timeout = TimeSpan.FromMilliseconds(10000);
+            _httpClient.Timeout = TimeSpan.FromMilliseconds(double.Parse(WebConfigurationManager.AppSettings["GovUKService:TimeoutMS"]));
 
             _sApplicationName = AppConstants.APPLICATION_NAME;
         }
@@ -86,8 +87,7 @@ namespace MOTCheck.Controller
         {
             CarModel govUKServiceCarModel = null;
 
-            string sJson;
-            if (GetMotTestResponse(a_sRegistration, out sJson, out a_sErrorMessage))
+            if (GetMotTestResponse(a_sRegistration, out string sJson, out a_sErrorMessage))
             {
                 try
                 {
